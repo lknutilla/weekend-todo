@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import TodoItemComponent from './TodoItemComponent';
 
-export default class ThirdComponent extends Component {
+export default class TodoListComponent extends Component {
 
   constructor() {
     super();
@@ -59,15 +60,18 @@ export default class ThirdComponent extends Component {
   }
 
   render() {
+    console.log(this.state.listItems);
     let list = this.state.listItems.map((item,idx) => {
-      return (<div key={idx} style={{display: "flex", flexDirection: "row"}}>
-                <input type="checkbox" onChange={() => {this.itemCompleted(idx)}}></input>
-                <p className={item.completed ? "completed" : ""}>{item.text}</p>
-                <button onClick={() => {this.deleteItem(idx)}}>Delete</button>
-              </div>)
+      return (
+          <TodoItemComponent
+            idx={idx}
+            item={item}
+            complete={this.itemCompleted}
+            delete={this.deleteItem}/>
+        )
     })
     return (
-      <div className="ThirdComponent" style={{color: "black"}}>
+      <div className="TodoListComponent" style={{color: "black"}}>
         <form onSubmit={this.handleSubmit}>
           <input type="text" placeholder="what do you want to do?" value={this.state.inputValue} onChange={this.handleChange}></input>
         </form>
