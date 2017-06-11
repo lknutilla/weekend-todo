@@ -13,6 +13,7 @@ export default class ThirdComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.itemCompleted = this.itemCompleted.bind(this);
+    this.deleteCompleted = this.deleteCompleted.bind(this);
   }
 
   addItem(item) {
@@ -44,6 +45,19 @@ export default class ThirdComponent extends Component {
     this.setState({listItems: items});
   }
 
+  deleteCompleted() {
+    let items = this.state.listItems;
+    console.log(items);
+    let newItems = []
+    for (let i= 0; i < items.length; i++) {
+      if (!items[i].completed) {
+        newItems.push(items[i]);
+        console.log(items[i]);
+      };
+    };
+    this.setState({listItems: newItems});
+  }
+
   render() {
     let list = this.state.listItems.map((item,idx) => {
       return (<div key={idx} style={{display: "flex", flexDirection: "row"}}>
@@ -59,6 +73,9 @@ export default class ThirdComponent extends Component {
         </form>
         <div>
           {list}
+        </div>
+        <div>
+          <button onClick={() => {this.deleteCompleted()}}>Delete Completed</button>
         </div>
       </div>
 
